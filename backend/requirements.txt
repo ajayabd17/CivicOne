@@ -6,3 +6,5 @@ python-dotenv==1.2.1
 psycopg2-binary==2.9.11
 pydantic==2.12.5
 pydantic-ai==0.0.14
+griffe>=0.40.0
+httpx>=0.25.0
