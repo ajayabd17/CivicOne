@@ -3,10 +3,10 @@ from sqlmodel import Session
 import json
 import re
 
-from app.db import get_session
-from app.agents.civic_agent import agent
-from app.agents.schemas import ResolveRequest, ResolveResponse
-from app.services.portal_service import (
+from ..db import get_session
+from ..agents.civic_agent import agent
+from ..agents.schemas import ResolveRequest, ResolveResponse
+from ..services.portal_service import (
     get_portals_by_state,
     get_portal_by_id,
     get_portal_instructions
