@@ -12,6 +12,8 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:9002",  # Next.js dev server
         "http://localhost:3000",  # Alternative Next.js port
+        "https://*.vercel.app",   # Vercel deployments
+        "https://civicone.vercel.app",  # Production Vercel domain
     ],
     allow_credentials=True,
     allow_methods=["*"],
