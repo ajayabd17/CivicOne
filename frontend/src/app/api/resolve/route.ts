@@ -12,31 +12,34 @@ export async function POST(request: Request) {
       );
     }
 
-    // Simulate a delay
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    // Forward request to FastAPI backend
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
+    const response = await fetch(`${backendUrl}/resolve`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        state,
+        issue_text,
+      }),
+    });
 
-    // Simulate backend responses for different states
-    if (state === 'Not Found State') {
-      return NextResponse.json({ error: 'Not Found' }, { status: 404 });
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({ detail: 'Unknown error' }));
+      return NextResponse.json(
+        { error: errorData.detail || 'Backend error' },
+        { status: response.status }
+      );
     }
 
-    if (state === 'Server Error State') {
-      return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
-    }
-
-    // Simulate a successful response
-    const successResponse = {
-      portal_id: 123,
-      portal_name: `Official Portal for ${state}`,
-      portal_url: `https://example.gov.in/${state.toLowerCase().replace(/[\s&]/g, '-')}`,
-      instructions: `On the portal homepage, look for the 'File a Complaint' or 'Grievance Redressal' section. You may need to create an account to proceed. Based on your issue: "${
-        issue_text || 'No issue described.'
-      }"`,
-      reasoning: `This portal is designated by the government of ${state} as the primary channel for civic issues related to public infrastructure and services.`,
-    };
-
-    return NextResponse.json(successResponse);
+    const data = await response.json();
+    return NextResponse.json(data);
   } catch (error) {
-    return NextResponse.json({ error: 'Bad Request' }, { status: 400 });
+    console.error('API route error:', error);
+    return NextResponse.json(
+      { error: 'Failed to connect to backend service' },
+      { status: 500 }
+    );
   }
 }
