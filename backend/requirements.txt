@@ -5,6 +5,11 @@ sqlalchemy==2.0.45
 python-dotenv==1.2.1
 psycopg2-binary==2.9.11
 pydantic==2.12.5
+pydantic-core==2.41.5
+pydantic-ai==1.44.0
 httpx==0.28.1
 griffe==1.15.0
-pydantic-ai[openai]==0.0.14
+click==8.3.1
+starlette==0.50.0
+anyio==4.12.1
+certifi==2026.1.4
