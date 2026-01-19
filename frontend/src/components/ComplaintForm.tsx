@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { indianStates } from '../lib/states';
-import { detectStateFromIssue } from '../lib/location';
+import { indianStates } from '@/lib/states';
+import { detectStateFromIssue } from '@/lib/location';
 import { Button } from './ui/button';
 import { Textarea } from './ui/textarea';
 import {
